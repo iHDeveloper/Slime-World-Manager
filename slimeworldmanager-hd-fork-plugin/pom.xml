@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
+        <groupId>me.ihdeveloper</groupId>
         <artifactId>slimeworldmanager</artifactId>
-        <groupId>com.grinderwolf</groupId>
-        <version>2.2.0-SNAPSHOT</version>
+        <version>2.2.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>slimeworldmanager-plugin</artifactId>
+    <artifactId>slimeworldmanager-hd-fork-plugin</artifactId>
 
     <repositories>
         <repository>
@@ -27,17 +27,17 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.grinderwolf</groupId>
+            <groupId>me.ihdeveloper</groupId>
             <artifactId>slimeworldmanager-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.grinderwolf</groupId>
+            <groupId>me.ihdeveloper</groupId>
             <artifactId>slimeworldmanager-nms-common</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.grinderwolf</groupId>
+            <groupId>me.ihdeveloper</groupId>
             <artifactId>slimeworldmanager-nms-v1_8_R3</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -101,31 +101,31 @@
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
-                            <shadedPattern>com.grinderwolf.swm.internal.org.bstats</shadedPattern>
+                            <shadedPattern>me.ihdeveloper.swm.internal.org.bstats</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>ninja.leaping.configurate</pattern>
-                            <shadedPattern>com.grinderwolf.swm.internal.ninja.leaping.configurate</shadedPattern>
+                            <shadedPattern>me.ihdeveloper.swm.internal.ninja.leaping.configurate</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>com.flowpowered.nbt</pattern>
-                            <shadedPattern>com.grinderwolf.swm.internal.com.flowpowered.nbt</shadedPattern>
+                            <shadedPattern>me.ihdeveloper.swm.internal.com.flowpowered.nbt</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>com.zaxxer.hikari</pattern>
-                            <shadedPattern>com.grinderwolf.swm.internal.com.zaxxer.hikari</shadedPattern>
+                            <shadedPattern>me.ihdeveloper.swm.internal.com.zaxxer.hikari</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>com.mongodb</pattern>
-                            <shadedPattern>com.grinderwolf.swm.internal.com.mongodb</shadedPattern>
+                            <shadedPattern>me.ihdeveloper.swm.internal.com.mongodb</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>org.bson</pattern>
-                            <shadedPattern>com.grinderwolf.swm.internal.org.bson</shadedPattern>
+                            <shadedPattern>me.ihdeveloper.swm.internal.org.bson</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>com.github.luben.zstd</pattern>
-                            <shadedPattern>com.grinderwolf.swm.internal.zstd</shadedPattern>
+                            <shadedPattern>me.ihdeveloper.swm.internal.zstd</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

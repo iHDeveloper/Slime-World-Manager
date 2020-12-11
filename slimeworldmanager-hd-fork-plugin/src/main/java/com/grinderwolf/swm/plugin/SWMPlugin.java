@@ -141,6 +141,13 @@ public class SWMPlugin extends JavaPlugin implements SlimePlugin {
         }
 
         worlds.clear();
+
+        getServer().getConsoleSender().sendMessage("§aPlugin is enabled! §eCreated by §3@Grinderwolf §eand fork by §3@iHDeveloper");
+    }
+
+    @Override
+    public void onDisable() {
+        getServer().getConsoleSender().sendMessage("§cPlugin is disabled! §eCreated by §3@Grinderwolf §eand fork by §3@iHDeveloper");
     }
 
     private SlimeNMS getNMSBridge() throws InvalidVersionException {
@@ -150,7 +157,7 @@ public class SWMPlugin extends JavaPlugin implements SlimePlugin {
         if ("v1_8_R3".equals(nmsVersion)) {
             return new v1_8_R3SlimeNMS();
         }
-        throw new InvalidVersionException(nmsVersion);
+        throw new InvalidVersionException("This fork supports only 1.8.8. If you are using other version please download from the original repository.");
     }
 
     private List<String> loadWorlds() {
