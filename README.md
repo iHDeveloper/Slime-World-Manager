@@ -8,7 +8,7 @@ Thanks to:
  * All the contributors who helped me by adding features to SWM.
  * [Glare](https://glaremasters.me) for providing me with a Maven repository.
  * [Minikloon](https://twitter.com/Minikloon) and all the [Hypixel](https://twitter.com/HypixelNetwork) team for developing the SRF.
- * [Grinderwolf](https://github.com/Grinderwolf) The original owner of the [Slime World Manager](https://github.com/Grinderwolf/Slime-World-Manager)
+ * [Grinderwolf](https://github.com/Grinderwolf) The original creator of the [Slime World Manager](https://github.com/Grinderwolf/Slime-World-Manager)
  
 ## YourKit
 

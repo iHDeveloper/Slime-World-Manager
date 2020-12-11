@@ -3,7 +3,7 @@
     <parent>
         <groupId>me.ihdeveloper</groupId>
         <artifactId>slimeworldmanager</artifactId>
-        <version>2.2.2-SNAPSHOT</version>
+        <version>2.2.2-RC-0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <properties>
