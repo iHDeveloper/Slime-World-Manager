@@ -123,14 +123,9 @@
                             <pattern>org.bson</pattern>
                             <shadedPattern>me.ihdeveloper.swm.internal.org.bson</shadedPattern>
                         </relocation>
-                        <relocation>
-                            <pattern>com.github.luben.zstd</pattern>
-                            <shadedPattern>me.ihdeveloper.swm.internal.zstd</shadedPattern>
-                        </relocation>
                     </relocations>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>
