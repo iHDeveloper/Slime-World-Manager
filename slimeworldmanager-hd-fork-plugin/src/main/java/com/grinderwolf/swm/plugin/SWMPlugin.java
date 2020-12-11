@@ -43,6 +43,13 @@ public class SWMPlugin extends JavaPlugin implements SlimePlugin {
     private final ExecutorService worldGeneratorService = Executors.newFixedThreadPool(1);
     private boolean asyncWorldGen;
 
+    private final HD hd = new HD() {
+        @Override
+        public SlimeWorld loadWorld(SlimeLoader loader, String worldName, String newWorldName, boolean readOnly, SlimePropertyMap propertyMap) throws UnknownWorldException, IOException, CorruptedWorldException, NewerFormatException, WorldInUseException {
+            return SWMPlugin.this.loadWorld(loader, worldName, newWorldName, readOnly, propertyMap);
+        }
+    };
+
     @Override
     public void onLoad() {
         instance = this;
@@ -142,12 +149,12 @@ public class SWMPlugin extends JavaPlugin implements SlimePlugin {
 
         worlds.clear();
 
-        getServer().getConsoleSender().sendMessage("§aPlugin is enabled! §eCreated by §3@Grinderwolf §eand fork by §3@iHDeveloper");
+        getServer().getConsoleSender().sendMessage("§eSlime World Manager §ais enabled! §eCreated by §3@Grinderwolf §eand fork by §3@iHDeveloper");
     }
 
     @Override
     public void onDisable() {
-        getServer().getConsoleSender().sendMessage("§cPlugin is disabled! §eCreated by §3@Grinderwolf §eand fork by §3@iHDeveloper");
+        getServer().getConsoleSender().sendMessage("§eSlime World Manager §cis disabled! §eCreated by §3@Grinderwolf §eand fork by §3@iHDeveloper");
     }
 
     private SlimeNMS getNMSBridge() throws InvalidVersionException {
@@ -220,35 +227,7 @@ public class SWMPlugin extends JavaPlugin implements SlimePlugin {
     @Override
     public SlimeWorld loadWorld(SlimeLoader loader, String worldName, boolean readOnly, SlimePropertyMap propertyMap) throws UnknownWorldException, IOException,
             CorruptedWorldException, NewerFormatException, WorldInUseException {
-        Objects.requireNonNull(loader, "Loader cannot be null");
-        Objects.requireNonNull(worldName, "World name cannot be null");
-        Objects.requireNonNull(propertyMap, "Properties cannot be null");
-
-        long start = System.currentTimeMillis();
-
-        Logging.info("Loading world " + worldName + ".");
-        byte[] serializedWorld = loader.loadWorld(worldName, readOnly);
-        CraftSlimeWorld world;
-
-        try {
-            world = LoaderUtils.deserializeWorld(loader, worldName, serializedWorld, propertyMap, readOnly);
-
-            if (world.getVersion() > nms.getWorldVersion()) {
-                WorldUpgrader.downgradeWorld(world);
-            } else if (world.getVersion() < nms.getWorldVersion()) {
-                WorldUpgrader.upgradeWorld(world);
-            }
-        } catch (Exception ex) {
-            if (!readOnly) { // Unlock the world as we're not using it
-                loader.unlockWorld(worldName);
-            }
-
-            throw ex;
-        }
-
-        Logging.info("World " + worldName + " loaded in " + (System.currentTimeMillis() - start) + "ms.");
-
-        return world;
+        return loadWorld(loader, worldName, worldName, readOnly, propertyMap);
     }
 
     @Override
@@ -392,5 +371,48 @@ public class SWMPlugin extends JavaPlugin implements SlimePlugin {
         }
 
         loader.saveWorld(worldName, serializedWorld, false);
+    }
+
+    private SlimeWorld loadWorld(SlimeLoader loader, String worldName, String newName, boolean readOnly, SlimePropertyMap propertyMap) throws UnknownWorldException, IOException,
+            CorruptedWorldException, NewerFormatException, WorldInUseException {
+        Objects.requireNonNull(loader, "Loader cannot be null");
+        Objects.requireNonNull(worldName, "World name cannot be null");
+        Objects.requireNonNull(newName, "New name cannot be null");
+        Objects.requireNonNull(propertyMap, "Properties cannot be null");
+
+        long start = System.currentTimeMillis();
+
+        if (newName.equals(worldName)) {
+            Logging.info("Loading world " + worldName + ".");
+        } else {
+            Logging.info("Loading world " + newName + " (as " + worldName + ")");
+        }
+        byte[] serializedWorld = loader.loadWorld(worldName, readOnly);
+        CraftSlimeWorld world;
+
+        try {
+            world = LoaderUtils.deserializeWorld(loader, worldName, newName, serializedWorld, propertyMap, readOnly);
+
+            if (world.getVersion() > nms.getWorldVersion()) {
+                WorldUpgrader.downgradeWorld(world);
+            } else if (world.getVersion() < nms.getWorldVersion()) {
+                WorldUpgrader.upgradeWorld(world);
+            }
+        } catch (Exception ex) {
+            if (!readOnly) { // Unlock the world as we're not using it
+                loader.unlockWorld(worldName);
+            }
+
+            throw ex;
+        }
+
+        Logging.info("World " + worldName + " loaded in " + (System.currentTimeMillis() - start) + "ms.");
+
+        return world;
+    }
+
+    @Override
+    public HD hd() {
+        return hd;
     }
 }

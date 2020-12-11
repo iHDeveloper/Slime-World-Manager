@@ -159,4 +159,37 @@ public interface SlimePlugin {
      */
     void importWorld(File worldDir, String worldName, SlimeLoader loader) throws WorldAlreadyExistsException,
             InvalidWorldException, WorldLoadedException, WorldTooBigException, IOException;
+
+    /**
+     * Access to the HD fork's functionality
+     *
+     * @return A class with HD fork methods
+     */
+    HD hd();
+
+    class HD {
+        /**
+         * Loads a world using a specificied {@link SlimeLoader}.
+         * This world can then be added to the server's world
+         * list by using the {@link #generateWorld(SlimeWorld)} method.
+         *
+         * @param loader {@link SlimeLoader} used to retrieve the world.
+         * @param worldName Name of the world.
+         * @param newWorldName The new name of the loaded world.
+         * @param readOnly Whether or not read-only mode is enabled.
+         * @param propertyMap A {@link SlimePropertyMap} object containing all the properties of the world.
+         *
+         * @return A {@link SlimeWorld}, which is the in-memory representation of the world.
+         *
+         * @throws UnknownWorldException if the world cannot be found.
+         * @throws IOException if the world cannot be obtained from the speficied data source.
+         * @throws CorruptedWorldException if the world retrieved cannot be parsed into a {@link SlimeWorld} object.
+         * @throws NewerFormatException if the world uses a newer version of the SRF.
+         * @throws WorldInUseException if the world is already being used on another server when trying to open it without read-only mode enabled.
+         */
+        public SlimeWorld loadWorld(SlimeLoader loader, String worldName, String newWorldName, boolean readOnly, SlimePropertyMap propertyMap) throws
+                UnknownWorldException, IOException, CorruptedWorldException, NewerFormatException, WorldInUseException {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+    }
 }

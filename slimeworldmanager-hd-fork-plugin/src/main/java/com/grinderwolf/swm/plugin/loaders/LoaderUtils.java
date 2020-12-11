@@ -107,7 +107,7 @@ public class LoaderUtils {
         loaderMap.put(dataSource, loader);
     }
 
-    public static CraftSlimeWorld deserializeWorld(SlimeLoader loader, String worldName, byte[] serializedWorld, SlimePropertyMap propertyMap, boolean readOnly)
+    public static CraftSlimeWorld deserializeWorld(SlimeLoader loader, String worldName, String newName, byte[] serializedWorld, SlimePropertyMap propertyMap, boolean readOnly)
             throws IOException, CorruptedWorldException, NewerFormatException {
         DataInputStream dataStream = new DataInputStream(new ByteArrayInputStream(serializedWorld));
 
@@ -308,7 +308,7 @@ public class LoaderUtils {
                 worldPropertyMap = new SlimePropertyMap();
             }
 
-            return new CraftSlimeWorld(loader, worldName, chunks, extraCompound, mapList, worldVersion, worldPropertyMap, readOnly, !readOnly);
+            return new CraftSlimeWorld(loader, newName, chunks, extraCompound, mapList, worldVersion, worldPropertyMap, readOnly, !readOnly);
         } catch (EOFException ex) {
             throw new CorruptedWorldException(worldName, ex);
         }
