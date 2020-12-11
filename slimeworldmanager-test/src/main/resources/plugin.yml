@@ -1,0 +1,7 @@
+name: SlimeWorldManager-HDFork-Test
+version: 1.0
+author: iHDeveloper
+main: me.ihdeveloper.swm.test.Main
+
+depend:
+  - SlimeWorldManager-HDFork

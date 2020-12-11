@@ -2,6 +2,28 @@
 
 A fork that's focused on 1.8.8 `(1.8_R3)` release and maintained by @iHDeveloper.
 
+## How to use
+- Getting the API
+```java
+SlimePlugin plugin = (SlimePlugin) Bukkit.getPluginManager().getPlugin("SlimeWorldManager-HDFork");
+
+/* If there's no HD fork plugin. Just get the original plugin */
+if (plugin == null) {
+    plugin = (SlimePlugin) Bukkit.getPluginManager().getPlugin("SlimeWorldManager");
+}
+```
+
+
+- Load world with different name
+```java
+SlimeLoader loader = plugin.getLoader("file");
+String originalName = "test_world";
+String newName = "test_world2";
+plugin.hd().loadWorld(loader, originalName, newName, true, new SlimePropertyMap());
+```
+
+- For more information about the original API [Click here](https://github.com/Grinderwolf/Slime-World-Manager/tree/develop/.docs/api)
+
 ## Credits
 
 Thanks to:

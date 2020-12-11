@@ -13,6 +13,7 @@
         <module>slimeworldmanager-hd-fork-plugin</module>
         <module>slimeworldmanager-importer</module>
         <module>slimeworldmanager-classmodifier</module>
+        <module>slimeworldmanager-test</module>
     </modules>
 
     <repositories>
