@@ -5,7 +5,7 @@
     <groupId>me.ihdeveloper</groupId>
     <artifactId>slimeworldmanager</artifactId>
     <packaging>pom</packaging>
-    <version>2.2.2-RC-0</version>
+    <version>2.2.2-RC-1</version>
     <modules>
         <module>slimeworldmanager-hd-fork-api</module>
         <module>slimeworldmanager-nms-common</module>
