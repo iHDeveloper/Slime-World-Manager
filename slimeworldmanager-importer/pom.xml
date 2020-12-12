@@ -11,7 +11,7 @@
     <dependencies>
         <dependency>
             <groupId>me.ihdeveloper</groupId>
-            <artifactId>slimeworldmanager-api</artifactId>
+            <artifactId>slimeworldmanager-hd-fork-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

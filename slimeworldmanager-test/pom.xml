@@ -11,12 +11,7 @@
     <dependencies>
         <dependency>
             <groupId>me.ihdeveloper</groupId>
-            <artifactId>slimeworldmanager-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>me.ihdeveloper</groupId>
-            <artifactId>slimeworldmanager-nms-common</artifactId>
+            <artifactId>slimeworldmanager-hd-fork-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

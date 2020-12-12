@@ -7,7 +7,7 @@
     <packaging>pom</packaging>
     <version>2.2.2-RC-0</version>
     <modules>
-        <module>slimeworldmanager-api</module>
+        <module>slimeworldmanager-hd-fork-api</module>
         <module>slimeworldmanager-nms-common</module>
         <module>slimeworldmanager-nms-v1_8_R3</module>
         <module>slimeworldmanager-hd-fork-plugin</module>
