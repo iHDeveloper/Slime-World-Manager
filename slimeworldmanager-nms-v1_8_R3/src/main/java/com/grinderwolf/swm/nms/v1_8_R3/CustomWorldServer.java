@@ -7,9 +7,18 @@ import com.grinderwolf.swm.api.world.properties.SlimePropertyMap;
 import com.grinderwolf.swm.nms.CraftSlimeWorld;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.server.v1_8_R3.*;
+import net.minecraft.server.v1_8_R3.BlockPosition;
+import net.minecraft.server.v1_8_R3.EntityTracker;
+import net.minecraft.server.v1_8_R3.EnumDifficulty;
+import net.minecraft.server.v1_8_R3.ExceptionWorldConflict;
+import net.minecraft.server.v1_8_R3.IDataManager;
+import net.minecraft.server.v1_8_R3.IProgressUpdate;
+import net.minecraft.server.v1_8_R3.MinecraftServer;
+import net.minecraft.server.v1_8_R3.WorldManager;
+import net.minecraft.server.v1_8_R3.WorldServer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 
 import java.io.IOException;
@@ -55,6 +64,8 @@ public class CustomWorldServer extends WorldServer {
 
     @Override
     public void save(boolean forceSave, IProgressUpdate progressUpdate) throws ExceptionWorldConflict {
+        Bukkit.getConsoleSender().sendMessage("§eSaving the world §f" + getSlimeWorld().getName());
+
         if (!slimeWorld.isReadOnly()) {
             super.save(forceSave, progressUpdate);
 
@@ -74,11 +85,13 @@ public class CustomWorldServer extends WorldServer {
             } else {
                 WORLD_SAVER_SERVICE.execute(this::save);
             }
+        } else {
+            Bukkit.getConsoleSender().sendMessage("§cFailed to save the world §7(READ_ONLY)");
         }
     }
 
     private void save() {
-        synchronized (saveLock) { // Don't want to save the slimeWorld from multiple threads simultaneously
+        synchronized (saveLock) { // Don't want to save the slimeWorld from multiple threads
             try {
                 LOGGER.info("Saving world " + slimeWorld.getName() + "...");
                 long start = System.currentTimeMillis();

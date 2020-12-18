@@ -191,5 +191,15 @@ public interface SlimePlugin {
                 UnknownWorldException, IOException, CorruptedWorldException, NewerFormatException, WorldInUseException {
             throw new UnsupportedOperationException("Not supported yet.");
         }
+
+        /**
+         * Saves a world using its loaded
+         *
+         * @param world The world to be saved
+         * @param forced If the world is read only. It forces the save to it.
+         */
+        public void saveWorld(SlimeWorld world, boolean forced) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
     }
 }

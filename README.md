@@ -22,6 +22,18 @@ String newName = "test_world2";
 plugin.hd().loadWorld(loader, originalName, newName, true, new SlimePropertyMap());
 ```
 
+
+- Save world with ability to force it or not
+```java
+// Without force (any read-only is going to be ignored)
+plugin.hd().saveWorld(world, false);
+
+// With force (it's going to save the read-only world)
+// NOT RECOMMENDED
+plugin.hd().saveWorld(world, true);
+```
+
+
 - For more information about the original API [Click here](https://github.com/Grinderwolf/Slime-World-Manager/tree/develop/.docs/api)
 
 ## Credits

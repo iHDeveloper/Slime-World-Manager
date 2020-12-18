@@ -3,7 +3,15 @@ package com.grinderwolf.swm.plugin;
 import com.flowpowered.nbt.CompoundMap;
 import com.flowpowered.nbt.CompoundTag;
 import com.grinderwolf.swm.api.SlimePlugin;
-import com.grinderwolf.swm.api.exceptions.*;
+import com.grinderwolf.swm.api.exceptions.CorruptedWorldException;
+import com.grinderwolf.swm.api.exceptions.InvalidVersionException;
+import com.grinderwolf.swm.api.exceptions.InvalidWorldException;
+import com.grinderwolf.swm.api.exceptions.NewerFormatException;
+import com.grinderwolf.swm.api.exceptions.UnknownWorldException;
+import com.grinderwolf.swm.api.exceptions.WorldAlreadyExistsException;
+import com.grinderwolf.swm.api.exceptions.WorldInUseException;
+import com.grinderwolf.swm.api.exceptions.WorldLoadedException;
+import com.grinderwolf.swm.api.exceptions.WorldTooBigException;
 import com.grinderwolf.swm.api.loaders.SlimeLoader;
 import com.grinderwolf.swm.api.world.SlimeWorld;
 import com.grinderwolf.swm.api.world.properties.SlimeProperties;
@@ -12,7 +20,9 @@ import com.grinderwolf.swm.nms.CraftSlimeWorld;
 import com.grinderwolf.swm.nms.SlimeNMS;
 import com.grinderwolf.swm.nms.v1_8_R3.v1_8_R3SlimeNMS;
 import com.grinderwolf.swm.plugin.commands.CommandManager;
-import com.grinderwolf.swm.plugin.config.*;
+import com.grinderwolf.swm.plugin.config.ConfigManager;
+import com.grinderwolf.swm.plugin.config.WorldData;
+import com.grinderwolf.swm.plugin.config.WorldsConfig;
 import com.grinderwolf.swm.plugin.loaders.LoaderUtils;
 import com.grinderwolf.swm.plugin.log.Logging;
 import com.grinderwolf.swm.plugin.update.Updater;
@@ -22,13 +32,21 @@ import com.grinderwolf.swm.plugin.world.importer.WorldImporter;
 import lombok.Getter;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import org.bstats.bukkit.Metrics;
-import org.bukkit.*;
-import org.bukkit.command.Command;
+import org.bukkit.Bukkit;
+import org.bukkit.Difficulty;
+import org.bukkit.World;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -47,6 +65,24 @@ public class SWMPlugin extends JavaPlugin implements SlimePlugin {
         @Override
         public SlimeWorld loadWorld(SlimeLoader loader, String worldName, String newWorldName, boolean readOnly, SlimePropertyMap propertyMap) throws UnknownWorldException, IOException, CorruptedWorldException, NewerFormatException, WorldInUseException {
             return SWMPlugin.this.loadWorld(loader, worldName, newWorldName, readOnly, propertyMap);
+        }
+
+        @Override
+        public void saveWorld(SlimeWorld world, boolean forced) {
+            try {
+                Bukkit.getConsoleSender().sendMessage("§eSaving the world " + (forced ? "§c(forced)" : "") + "§f " + world.getName() + " §7(read-only=§f" + world.isReadOnly() + "§7)");
+                if (world.isReadOnly() && !forced) {
+                    Bukkit.getConsoleSender().sendMessage("§cFailed to save the world! §7(READ_ONLY)");
+                    return;
+                }
+
+                long start = System.currentTimeMillis();
+                byte[] serializedWorld = ((CraftSlimeWorld) world).serialize();
+                world.getLoader().saveWorld(world.getName(), serializedWorld, false);
+                Bukkit.getConsoleSender().sendMessage("§aSaved world §f" + world.getName() + "§a! §7(" + (System.currentTimeMillis() - start) + "ms)");
+            } catch (Exception ex) {
+                Bukkit.getConsoleSender().sendMessage("§cFailed to save the world! §7(" + ex.getMessage() + ")");
+            }
         }
     };
 

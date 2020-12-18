@@ -24,6 +24,9 @@ public class Main extends JavaPlugin {
             getServer().getConsoleSender().sendMessage("§3Slime World Manager §6Test §eis generating the world");
             slimePlugin.generateWorld(world);
 
+            getServer().getConsoleSender().sendMessage("§3Slime World Manager §6Test §eis saving the world §7(using hd-fork)");
+            slimePlugin.hd().saveWorld(world, true);
+
             getServer().getConsoleSender().sendMessage("§3Slime World Manager §6Test§a is successfully done!");
         } catch (UnknownWorldException | IOException | CorruptedWorldException | NewerFormatException | WorldInUseException e) {
             getServer().getConsoleSender().sendMessage("§3Slime World Manager §6Test§c failed!&e with the reason: &f" + e.getMessage());
